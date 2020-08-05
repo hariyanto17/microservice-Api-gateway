@@ -4,12 +4,15 @@ const {APP_NAME} = process.env
 
 const coursesHandler = require('./handler/courses');
 
+const verifyToken = require('../middlewares/verifyToken');
+
 /* GET users listing. */
-router.post('/', coursesHandler.create);
 router.get('/', coursesHandler.getAll);
-// router.get('/:id', coursesHandler.get);
-router.put('/:id', coursesHandler.update);
-router.delete('/:id', coursesHandler.destroy);
+router.get('/:id', coursesHandler.get);
+
+router.post('/', verifyToken, coursesHandler.create);
+router.put('/:id', verifyToken, coursesHandler.update);
+router.delete('/:id', verifyToken, coursesHandler.destroy);
 
 
 module.exports = router;
